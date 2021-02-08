@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,12 +8,30 @@ import {
 
 
 import './App.css';
+import { login, logout, selectUser } from './features/counter/userSlice';
+import { auth } from './firebase';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
+import ProfileScreen from './screens/ProfileScreen';
 
 function App() {
 
-  const user = null
+  const user = useSelector(selectUser) //select the user that is stored;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth =>{
+      if(userAuth){
+        dispatch(login({
+          uid: userAuth.uid,
+          email: userAuth.email
+        })) //parameter inside the action login is the payload in this case the authUser uid and email to the state stored, 
+      } else{
+        dispatch(logout())
+      }
+    })
+    return unsubscribe
+  }, [dispatch])
 
   return (
     <div className="app">
@@ -22,9 +41,10 @@ function App() {
           <Route  exact path="/">
               <HomeScreen/>
           </Route>
-          <Route path="/test">
-              <h1>HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</h1>
+          <Route path="/profile">
+            <ProfileScreen/>
           </Route>
+          
         </Switch>
       )}
       </Router>
