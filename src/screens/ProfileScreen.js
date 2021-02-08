@@ -10,6 +10,8 @@ function ProfileScreen() {
 
     const user = useSelector(selectUser);
 
+    
+
     return (
         <div className="profileScreen">
            <Nav/>
@@ -22,7 +24,7 @@ function ProfileScreen() {
                     <div className="profileScreen__details">
                         <h2>{user.email}</h2>
                         <div className="profileScreen__plans"> 
-                            <h3>Plans</h3>
+                            <h3>Plans {user.plan && <p> (Current Plan: {user.plan.role})</p>} </h3>
                             <PlansScreen/>
                             
                             <button onClick={()=> auth.signOut()} className="profileScreen__signout">Sign out</button>

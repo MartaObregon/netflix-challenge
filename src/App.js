@@ -38,6 +38,7 @@ function App() {
       <Router>
       {!user ? (<LoginScreen/>) : (
         <Switch>
+        
           <Route  exact path="/">
               <HomeScreen/>
           </Route>
