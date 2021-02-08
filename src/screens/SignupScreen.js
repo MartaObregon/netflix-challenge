@@ -2,7 +2,11 @@ import React, { useRef } from 'react'
 import { auth } from '../firebase';
 import './Signup.css'
 
-function SignupScreen() {
+function SignupScreen({emailProp}) {
+    
+
+
+
 
     const emailRef = useRef(null); //point out a ref
     const passwordRef = useRef(null)
@@ -39,7 +43,7 @@ function SignupScreen() {
         <div className="signupScreen">
             <form>
                 <h1>Sign In</h1>
-                <input ref={emailRef} type="email" placeholder="Email"/>
+                <input ref={emailRef}  type="email" placeholder={emailProp} onClick={console.log(1)}/>
                 <input ref={passwordRef} placeholder="Password" type="password"/>
                 <button type="submit" onClick={signIn}>Sign In</button>
 

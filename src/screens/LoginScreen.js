@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useRef, useState} from 'react'
 import './LoginScreen.css'
 import SignupScreen from './SignupScreen';
 
 function LoginScreen() {
 
     const [signIn, setSignIn] = useState(false);
+    const emailRef = useRef(null); //point out a ref
 
     return (
         <div className="loginScreen">
@@ -17,7 +18,7 @@ function LoginScreen() {
             <div className="loginScreen__gradient"/>
             <div className="loginScreen__body">
                 {signIn? (
-                    <SignupScreen/>
+                    <SignupScreen emailProp={emailRef.current.value}/>
                 ): (
                     <>
                     <h1>Unlimited films, Tv programmes and more.</h1>
@@ -28,7 +29,7 @@ function LoginScreen() {
 
                     <div className="loginScreen__input">
                         <form>
-                            <input type="email" placeholder="Email address"/>
+                            <input ref={emailRef} type="email" placeholder="Email address"/>
                             <button onClick={()=>{setSignIn(true)}} className="loginScreen__getStarted">GET STARTED</button>
                         </form>
                     </div>
